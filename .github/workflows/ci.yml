@@ -21,7 +21,16 @@ jobs:
         run: dotnet restore src/MerqoVertexa.sln
 
       - name: Build (warnings as errors)
-        run: dotnet build src/MerqoVertexa.sln -c Release --no-restore -p:TreatWarningsAsErrors=true
+        run: dotnet build src/MerqoVertexa.sln -c Release --no-restore -p:TreatWarningsAsErrors=true 2>&1 | Tee-Object -FilePath build.log
+
+      - name: Publish build errors to step summary on failure
+        if: failure()
+        shell: pwsh
+        run: |
+          $err = Select-String -Path build.log -Pattern 'error' | Select-Object -First 30
+          "````````````````````" | Out-File -Append $GITHUB_STEP_SUMMARY
+          "## Build errors" | Out-File -Append $GITHUB_STEP_SUMMARY
+          $err | ForEach-Object { $_.Line } | Out-File -Append $GITHUB_STEP_SUMMARY
 
       - name: Dependency vulnerability audit
         run: dotnet list src/MerqoVertexa.sln package --vulnerable --include-transitive
