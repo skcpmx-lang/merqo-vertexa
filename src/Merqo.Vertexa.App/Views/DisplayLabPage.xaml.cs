@@ -17,7 +17,7 @@ public partial class DisplayLabPage : Page
     public DisplayLabPage()
     {
         InitializeComponent();
-        foreach (var (name, color) in Patterns)
+        foreach (var (name, color) in PatternList)
         {
             var btn = new Button { Content = name, Padding = new Thickness(14, 8), Margin = new Thickness(4), Tag = color };
             btn.Click += (_, _) => ShowFullscreen(color);
