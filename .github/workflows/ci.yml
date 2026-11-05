@@ -23,16 +23,20 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore src/MerqoVertexa.sln
 
-      - name: Build (warnings as errors)
-        shell: bash
-        run: |
-          set -o pipefail
-          dotnet build src/MerqoVertexa.sln -c Release --no-restore -p:TreatWarningsAsErrors=true 2>&1 | tee build.log
-          rc=${PIPESTATUS[0]}
-          if [ $rc -ne 0 ]; then
-            { echo '## Build errors'; grep -iE 'error [A-Z]+[0-9]+' build.log | sort -u | head -30; } >> "$GITHUB_STEP_SUMMARY"
-          fi
-          exit $rc
+      - name: Build Core
+        continue-on-error: true
+        run: dotnet build src/Merqo.Vertexa.Core/Merqo.Vertexa.Core.csproj -c Release --no-restore 2>&1 | tail -5
+
+      - name: Build App
+        continue-on-error: true
+        run: dotnet build src/Merqo.Vertexa.App/Merqo.Vertexa.App.csproj -c Release --no-restore 2>&1 | tail -5
+
+      - name: Build Tests
+        continue-on-error: true
+        run: dotnet build tests/Merqo.Vertexa.Core.Tests/Merqo.Vertexa.Core.Tests.csproj -c Release --no-restore 2>&1 | tail -5
+
+      - name: Build solution (warnings as errors)
+        run: dotnet build src/MerqoVertexa.sln -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Post build log as commit comment on failure (debug)
         if: failure()
