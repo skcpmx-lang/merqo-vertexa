@@ -21,16 +21,20 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore src/MerqoVertexa.sln
+        run: dotnet restore src/Merqo.Vertexa.App/Merqo.Vertexa.App.csproj
+      - name: Restore tests
+        run: dotnet restore tests/Merqo.Vertexa.Core.Tests/Merqo.Vertexa.Core.Tests.csproj
 
       - name: Build solution
-        run: dotnet build src/MerqoVertexa.sln -c Release --no-restore
+        run: |
+        dotnet build src/Merqo.Vertexa.App/Merqo.Vertexa.App.csproj -c Release --no-restore
+        dotnet build tests/Merqo.Vertexa.Core.Tests/Merqo.Vertexa.Core.Tests.csproj -c Release --no-restore
 
       - name: Dependency vulnerability audit
-        run: dotnet list src/MerqoVertexa.sln package --vulnerable --include-transitive
+        run: dotnet list src/Merqo.Vertexa.App/Merqo.Vertexa.App.csproj package --vulnerable --include-transitive
 
       - name: Run tests
-        run: dotnet test src/MerqoVertexa.sln -c Release --no-build --logger "trx;LogFileName=results.trx"
+        run: dotnet test tests/Merqo.Vertexa.Core.Tests/Merqo.Vertexa.Core.Tests.csproj -c Release --no-build --logger "trx;LogFileName=results.trx"
 
       - name: Upload test results
         if: always()
