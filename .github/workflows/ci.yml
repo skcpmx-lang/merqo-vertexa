@@ -34,14 +34,15 @@ jobs:
           fi
           exit $rc
 
-      - name: Post build log as issue on failure (debug)
+      - name: Post build log as commit comment on failure (debug)
         if: failure()
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          { echo '## Build errors for ' $GITHUB_SHA; echo '```'; grep -iE 'error' build.log | sort -u | head -40; echo '```'; } > /tmp/body.md
-          gh issue create --repo "$GITHUB_REPOSITORY" --title "CI build failure $GITHUB_SHA" --body-file /tmp/body.md || true
+          { echo '## Build errors'; echo '```'; grep -iE 'error' build.log | sort -u | head -40; echo '```'; } > /tmp/body.json
+          jq -n --arg b "$(cat /tmp/body.json)" '{body: $b}' > /tmp/payload.json
+          gh api repos/"$GITHUB_REPOSITORY"/commits/"$GITHUB_SHA"/comments -f body="$(cat /tmp/body.json)" || true
 
       - name: Dependency vulnerability audit
         run: dotnet list src/MerqoVertexa.sln package --vulnerable --include-transitive
