@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>12</LangVersion>
+    <AssemblyName>Merqo.Vertexa.App</AssemblyName>
+    <RootNamespace>Merqo.Vertexa.App</RootNamespace>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Company>MERQO</Company>
+    <Product>MERQO VERTEXA</Product>
+    <Description>Advanced PC &amp; Laptop Hardware Diagnostics Platform</Description>
+    <Copyright>Copyright (c) 2026 Shohan Khan / MERQO</Copyright>
+    <!-- Unsigned release policy: no signing, no security bypass. -->
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Merqo.Vertexa.Core\Merqo.Vertexa.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\app.ico" />
+  </ItemGroup>
+
+</Project>

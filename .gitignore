@@ -1,0 +1,30 @@
+# Build output
+bin/
+obj/
+out/
+publish/
+*.user
+*.suo
+.vs/
+packages/
+
+# Test / coverage
+TestResults/
+coverage/
+*.trx
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Local settings / secrets (never commit)
+*.pfx
+*.snk
+appsettings.local.json
+secrets/
+
+# Artifacts kept out of git (published via GitHub Releases)
+dist/
+artifacts/
+releases/
+SHA256SUMS.txt

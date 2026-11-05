@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*.*.*']
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8 SDK (pinned)
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Run tests
+        run: dotnet test src/MerqoVertexa.sln -c Release
+
+      - name: Publish self-contained single-file EXE (portable)
+        run: dotnet publish src/Merqo.Vertexa.App/Merqo.Vertexa.App.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/portable
+
+      - name: Publish framework-dependent EXE (installer layout)
+        run: dotnet publish src/Merqo.Vertexa.App/Merqo.Vertexa.App.csproj -c Release -r win-x64 --self-contained false -o artifacts/installer
+
+      - name: Generate SHA-256 checksums
+        shell: pwsh
+        run: |
+          Get-ChildItem artifacts -Recurse -File -Filter *.exe |
+            ForEach-Object { "{0}  {1}" -f (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower(), $_.Name } |
+            Set-Content artifacts/SHA256SUMS.txt
+
+      - name: Create GitHub Release (unsigned — SmartScreen warning disclosed in notes)
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/portable/*.exe
+            artifacts/installer/*.exe
+            artifacts/SHA256SUMS.txt
+          body: |
+            ## MERQO VERTEXA ${{ github.ref_name }}
+            Unsigned release per policy: Windows may show an "Unknown publisher" SmartScreen prompt. Verify SHA256SUMS.txt before running.
+            Source: ${{ github.server_url }}/${{ github.repository }}

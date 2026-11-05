@@ -1,0 +1,13 @@
+<Page x:Class="Merqo.Vertexa.App.Views.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="{DynamicResource BackgroundBrush}">
+    <StackPanel Margin="16">
+        <TextBlock Text="Settings" Style="{StaticResource H1}"/>
+        <TextBlock Style="{StaticResource Muted}" Margin="0,4,0,12" Text="Persisted locally (SQLite). No telemetry, no cloud, fully offline."/>
+        <CheckBox x:Name="MaskSerials" Content="Mask serial numbers in reports (privacy)" Foreground="{DynamicResource TextBrush}" Margin="0,4"/>
+        <CheckBox x:Name="DarkTheme" Content="Dark theme (default)" Foreground="{DynamicResource TextBrush}" Margin="0,4" IsChecked="True"/>
+        <Button Content="Save Settings" Click="Save_Click" Padding="14,8" HorizontalAlignment="Left" Margin="0,8,0,0"/>
+        <TextBlock x:Name="Status" Style="{StaticResource Muted}" Margin="0,12,0,0"/>
+    </StackPanel>
+</Page>
