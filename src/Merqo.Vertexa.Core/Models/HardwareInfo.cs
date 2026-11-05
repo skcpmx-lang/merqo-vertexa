@@ -28,7 +28,7 @@ public sealed class GpuInfo
     public DiagnosticResult<long> DedicatedMemoryBytes { get; init; } = DiagnosticResult<long>.Unavailable("none", "none", "not collected");
 }
 
-public sealed class RamInfo
+public sealed record RamInfo
 {
     public DiagnosticResult<long> TotalBytes { get; init; } = DiagnosticResult<long>.Unavailable("none", "none", "not collected");
     public DiagnosticResult<long> AvailableBytes { get; init; } = DiagnosticResult<long>.Unavailable("none", "none", "not collected");
