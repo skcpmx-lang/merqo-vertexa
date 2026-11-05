@@ -18,6 +18,9 @@
                 <Button Style="{StaticResource NavButton}" Content="🔋 Battery" Tag="Battery" Click="Nav_Click"/>
                 <Button Style="{StaticResource NavButton}" Content="💾 Storage" Tag="Storage" Click="Nav_Click"/>
                 <Button Style="{StaticResource NavButton}" Content="🧩 Drivers" Tag="Drivers" Click="Nav_Click"/>
+                <Button Style="{StaticResource NavButton}" Content="🖥 Display Lab" Tag="DisplayLab" Click="Nav_Click"/>
+                <Button Style="{StaticResource NavButton}" Content="⌨ Keyboard Lab" Tag="KeyboardLab" Click="Nav_Click"/>
+                <Button Style="{StaticResource NavButton}" Content="🔊 Audio Lab" Tag="AudioLab" Click="Nav_Click"/>
                 <Button Style="{StaticResource NavButton}" Content="📄 Reports" Tag="Reports" Click="Nav_Click"/>
                 <Button Style="{StaticResource NavButton}" Content="⚙ Settings" Tag="Settings" Click="Nav_Click"/>
             </StackPanel>

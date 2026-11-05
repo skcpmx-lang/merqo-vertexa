@@ -1,0 +1,16 @@
+<Page x:Class="Merqo.Vertexa.App.Views.AudioLabPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="{DynamicResource BackgroundBrush}">
+    <StackPanel Margin="16">
+        <TextBlock Text="Audio Testing Lab" Style="{StaticResource H1}"/>
+        <TextBlock Style="{StaticResource Muted}" Margin="0,4,0,12"
+            Text="Locally generated test tones — no cloud or paid API. Test left, right, then both channels."/>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="▶ Left (440 Hz)" Click="Left_Click" Padding="14,8" Margin="0,0,8,0"/>
+            <Button Content="▶ Right (660 Hz)" Click="Right_Click" Padding="14,8" Margin="0,0,8,0"/>
+            <Button Content="▶ Stereo (880 Hz)" Click="Stereo_Click" Padding="14,8"/>
+        </StackPanel>
+        <TextBlock x:Name="Status" Style="{StaticResource Muted}" Margin="0,12,0,0"/>
+    </StackPanel>
+</Page>
