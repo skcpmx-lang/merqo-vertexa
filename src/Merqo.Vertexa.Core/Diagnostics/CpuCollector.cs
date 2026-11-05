@@ -21,7 +21,6 @@ public static class CpuCollector
             {
                 64 => "x64",
                 32 => "x86",
-                64_9 => "ARM64",
                 _ => "Unknown"
             };
 

@@ -12,7 +12,6 @@ public static class StorageCollector
         {
             var disks = WmiProvider.Query("Win32_DiskDrive", "Model", "SerialNumber", "Size", "MediaType", "PNPDeviceID");
             var logical = WmiProvider.Query("Win32_LogicalDisk", "DeviceID", "FileSystem", "Size", "FreeSpace");
-            var partsByModel = logical.GroupBy(l => l).ToList(); // placeholder grouping; partition mapping below
 
             foreach (var d in disks)
             {
