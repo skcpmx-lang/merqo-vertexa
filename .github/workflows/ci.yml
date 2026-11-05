@@ -31,16 +31,14 @@ jobs:
           fi
           exit $rc
 
-      - name: Save build log for debugging
+      - name: Post build log as issue on failure (debug)
         if: failure()
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mkdir -p ci-logs
-          cp build.log ci-logs/build-$(date +%s).log 2>/dev/null || true
-          git config user.name "vertexa-ci" && git config user.email "ci@localhost"
-          git add ci-logs || true
-          git commit -m "ci: build log [skip ci]" || true
-          git push origin HEAD:${GITHUB_REF#refs/heads/} || true
+          { echo '## Build errors for ' $GITHUB_SHA; echo '```'; grep -iE 'error' build.log | sort -u | head -40; echo '```'; } > /tmp/body.md
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "CI build failure $GITHUB_SHA" --body-file /tmp/body.md || true
 
       - name: Dependency vulnerability audit
         run: dotnet list src/MerqoVertexa.sln package --vulnerable --include-transitive
