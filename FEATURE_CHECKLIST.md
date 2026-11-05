@@ -16,9 +16,9 @@ States: NOT STARTED | PLANNED | IN DEVELOPMENT | IMPLEMENTED | TESTING | VERIFIE
 | RAM-001..002 | RAM info + bounded RW test | IN DEVELOPMENT | Collector implemented |
 | BAT-001..002 | Battery intelligence | IN DEVELOPMENT | Collector implemented |
 | STR-001..003 | Storage info + safe benchmark | IN DEVELOPMENT | Collector implemented |
-| DSP-001 | Display lab | PLANNED | — |
-| KEY-001 | Keyboard lab | PLANNED | — |
-| AUD-001 | Audio/mic lab | PLANNED | — |
+| DSP-001 | Display lab (fullscreen patterns, ESC exit) | IMPLEMENTED | DisplayLabPage; physical multi-monitor check pending |
+| KEY-001 | Keyboard lab (key capture, detected list) | IMPLEMENTED | KeyboardLabPage; physical keyboard test pending |
+| AUD-001 | Audio lab (local L/R/stereo tones) | PARTIAL | AudioLabPage; mic input + recording pending |
 | CAM-001 | Camera lab | PLANNED | — |
 | DRV-001 | Driver diagnostics | IN DEVELOPMENT | Collector implemented |
 | RPT-001 | Reports JSON/HTML/CSV | IN DEVELOPMENT | Report engine implemented |
