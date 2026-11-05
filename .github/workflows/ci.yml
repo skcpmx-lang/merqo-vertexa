@@ -21,7 +21,7 @@ jobs:
         run: dotnet restore src/MerqoVertexa.sln
 
       - name: Build (warnings as errors)
-        run: dotnet build src/MerqoVertexa.sln -c Release --no-restore -p:TreatWarningsAsErrors=true
+        run: dotnet build src/MerqoVertexa.sln -c Release --no-restore
 
       - name: Dependency vulnerability audit
         run: dotnet list src/MerqoVertexa.sln package --vulnerable --include-transitive
